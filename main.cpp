@@ -9,8 +9,8 @@
 tp<tn T> using V = tn T::v;
 
 tp <C ... c> F S {};
-tp <tn T> F Ops {};
-tp <C x, C ... y> F Ops<S<x, y...>> {sc C f = x; td S<y...> r; td S<y..., x> ro;};
+tp <tn T> F Op {};
+tp <C x, C ... y> F Op<S<x, y...>> {sc C f = x; td S<y...> r; td S<y..., x> ro;};
 tp <tn T, C x> F Add {};
 tp <C x, C ... y> F Add<S<y...>, x> {td S<y..., x> v;};
 tp <C x, tn T> F Cons {};
@@ -19,23 +19,23 @@ tp <C a, C b> F Rg {td tn Cons<a, tn Rg<a+1, b>::v>::v v;};
 tp <C x> F Rg<x,x> {td S<x> v;};
 tp <tn A, tn B> F Ct;
 tp <tn A, tn B> F Ct {
-  td Ops<B> b; 
+  td Op<B> b; 
   td tn Ct<tn Add<A, b::f>::v, tn b::r>::v v;
 };
 tp <tn A> F Ct<A, S<>> {td A v;};
 tp <tn A, tn B> using cat = tn Ct<A, B>::v;
 tp <C x, C y> using rg = tn Rg<x, y>::v;
 td cat<S<' ', ',', '.'>, cat<rg<'A', 'Z'>, rg<'0', '9'>>> CSet;
-tp <int n, tn T> F Nth {sc C v =  Nth<n-1, tn Ops<T>::ro>::v;};
-tp <tn T> F Nth<0, T> {sc C v = Ops<T>::f;};
-tp <tn T> F L {sc int v = 1 + L<tn Ops<T>::r>::v;};
+tp <int n, tn T> F Nth {sc C v =  Nth<n-1, tn Op<T>::ro>::v;};
+tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
+tp <tn T> F L {sc int v = 1 + L<tn Op<T>::r>::v;};
 tp <> F L<S<>> {sc int v = 0;};
 //tp <C c, tn T> F Find {};
 //tp <C x, C y, C z...> F Find {};
 
 
 int main() {
-  Ops<S<'a', 'b'>> x;
+  Op<S<'a', 'b'>> x;
   std::cout << "Bra!" << std::endl;
   return 0;
 }
