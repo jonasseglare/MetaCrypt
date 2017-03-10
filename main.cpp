@@ -1,12 +1,12 @@
 #include <iostream>
 #include <iomanip>
+
 #define tn typename
 #define td typedef
 #define tp template
 #define sc static const
 #define F struct
 #define Q char
-
 enum class Md {Encode,Decode};
 tp <Q ... c> F S {};
 tp <tn T> F Op {};
