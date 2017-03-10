@@ -3,6 +3,8 @@
 #define tn typename
 #define td typedef
 #define tp template
+#define sc static const
+#define F struct
 
 template <char ... c> struct String {};
 template <typename T> struct Ops {};
