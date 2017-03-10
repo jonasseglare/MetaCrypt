@@ -48,6 +48,10 @@ tp <Md m, tn K, tn X> F Tr {
   td tn Cn<coded, rest>::v v;
 };
 
+
+tp <tn T> F The_message_is;
+tp <tn T> F Disp : public The_message_is<T> {};
+
 int main() {
   Op<S<'a', 'b'>> x;
   std::cout << "Bra!" << std::endl;
