@@ -13,7 +13,11 @@ template <char x, typename T> struct Cons {};
 template <char x, char ... y> struct Cons<x, String<y...>> {typedef String<x, y...> value;};
 template <char a, char b> struct Range {typedef typename Cons<a, typename Range<a+1, b>::value>::value value;};
 template <char x> struct Range<x,x> {typedef String<x> value;};
-template <typename A, typename B> struct Cat {td Ops<B> b;};
+template <typename A, typename B> struct Cat;
+template <typename A, typename B> struct Cat {
+  td Ops<B> b; 
+  td tn Add<A, b::first>::value L;
+};
 
 int main() {
   Ops<String<'a', 'b'>> x;
