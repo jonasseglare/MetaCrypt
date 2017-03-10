@@ -43,6 +43,7 @@ int main() {
 
 static_assert(3 == L<S<'a', 'b', 'c'>>::v, "asdf");
 static_assert('c' == Nth<2, S<'a', 'b', 'c', 'd'> >::v, "asdf");
+static_assert('c' == Nth<-2, S<'a', 'b', 'c', 'd'> >::v, "asdf");
 static_assert(std::is_same<S<'a', 'b', 'c'>, typename Rg<'a', 'c'>::v>::value, "asdf");
 static_assert(std::is_same<tn Ad<S<'a'>, 'b'>::v, S<'a', 'b'>>::value, "asdf");
 static_assert(std::is_same<
