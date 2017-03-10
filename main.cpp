@@ -43,8 +43,7 @@ tp <Md m, tn K, tn X> F Tr;
 tp <Md m, tn K, tn X> F Tr {
   td Op<K> k; 
   td Op<X> x; 
-  td tn Tr<m, tn k::ro, tn x::r>::v rest;
-  td tn Cn<Cd<m, k::f, x::f>::v, rest>::v v;
+  td tn Cn<Cd<m, k::f, x::f>::v, tn Tr<m, tn k::ro, tn x::r>::v>::v v;
 };
 tp <Md m, tn K> F Tr<m,K,S<>> {td S<> v;};
 
