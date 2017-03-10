@@ -26,7 +26,7 @@ tp <tn A, tn B> F Ct {
 tp <tn A> F Ct<A, S<>> {td A v;};
 tp <tn A, tn B> using ct = tn Ct<A, B>::v;
 tp <C x, C y> using rg = tn Rg<x, y>::v;
-td ct<S<' ', ',', '.'>, ct<rg<'A', 'Z'>, rg<'0', '9'>>> CSet;
+td ct<ct<rg<'A', 'Z'>, rg<'0', '9'>>, S<' ', ',', '.'>> CSet;
 tp <tn T> F L {sc int v = 1 + L<tn Op<T>::r>::v;};
 tp <> F L<S<>> {sc int v = 0;};
 constexpr int mup(int x, int y) {return x<0? mup(x+y,y):x;}
@@ -35,6 +35,9 @@ tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
 tp <C x, tn T> F Fd {};
 tp <C x, C y, C ... z> F Fd<x, S<y, z...>> {sc int v = 1+Fd<x, S<z...>>::v;};
 tp <C x, C... y> F Fd<x,S<x,y...>> {sc int v = 0;};
+tp <C x> F Ind {sc int v = Fd<x, CSet>::v;};
+constexpr int sg(Md m) {return m==Md::Encode? 1 : -1;}
+tp <Md m, C x, C y> F Cd {sc C v = Nth<sg(m)*Ind<x>::v + Ind<y>::v, CSet>::v;};
 
 int main() {
   Op<S<'a', 'b'>> x;
@@ -42,6 +45,8 @@ int main() {
   return 0;
 }
 
+static_assert('D' == Cd<Md::Encode, 'B', 'C'>::v, "asdf");
+static_assert('C' == Cd<Md::Decode, 'B', 'D'>::v, "asdf");
 static_assert(3 == L<S<'a', 'b', 'c'>>::v, "asdf");
 static_assert('c' == Nth<2, S<'a', 'b', 'c', 'd'> >::v, "asdf");
 static_assert('c' == Nth<-2, S<'a', 'b', 'c', 'd'> >::v, "asdf");
