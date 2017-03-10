@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #define tn typename
 #define td typedef
 #define tp template
@@ -8,7 +9,6 @@
 
 enum class Md {Encode,Decode};
 tp <C ... c> F S {};
-td S<'C','A','S','S','O','U','L','E','T'> Key;
 tp<tn T> using V = tn T::v;
 tp <tn T> F Op {};
 tp <C x, C ... y> F Op<S<x, y...>> {sc C f = x; td S<y...> r; td S<y..., x> ro;};
@@ -34,7 +34,7 @@ tp <int n, tn T> F Nth {sc C v =  Nth<mup(n-1,L<T>::v), tn Op<T>::ro>::v;};
 tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
 tp <C x, tn T> F Fd {};
 tp <C x, C y, C ... z> F Fd<x, S<y, z...>> {sc int v = 1+Fd<x, S<z...>>::v;};
-tp <C x, C... y> F Fd<x,S<x,y...>> {sc int v = 0;};
+tp <C x, C ... y> F Fd<x,S<x,y...>> {sc int v = 0;};
 tp <C x> F Ind {sc int v = Fd<x, CSet>::v;};
 constexpr int sg(Md m) {return m==Md::Encode? 1 : -1;}
 tp <Md m, C x, C y> F Cd {sc C v = Nth<sg(m)*Ind<x>::v + Ind<y>::v, CSet>::v;};
@@ -43,23 +43,95 @@ tp <Md m, tn K, tn X> F Tr;
 tp <Md m, tn K, tn X> F Tr {
   td Op<K> k; 
   td Op<X> x; 
-  sc C coded = Cd<m, k::f, x::f>::v;
   td tn Tr<m, tn k::ro, tn x::r>::v rest;
-  td tn Cn<coded, rest>::v v;
+  td tn Cn<Cd<m, k::f, x::f>::v, rest>::v v;
 };
-tp <Md m, tn K> F Tr<m,K,S<>> {td S<> v;}
+tp <Md m, tn K> F Tr<m,K,S<>> {td S<> v;};
 
 
 tp <tn T> F The_message_is;
-tp <tn T> F Disp : public The_message_is<T> {};
+
+td S<'C','A','S','S','O','U','L','E','T'> Key; // /* Hint: fill in name of favourite dish (French cuisine) during meetings. */
+td S<'J','E','1','P','0','B','X','Q','1'> Coded;
+
+The_message_is<tn Tr<Md::Decode, Key, Coded>::v> x;
+
+
+// Helpers
+template <int i, typename s>
+struct MakeTable {
+  static void disp() {
+  }
+};
+
+template <int i, char x, char ... y>
+struct MakeTable<i, S<x, y...>> {
+  static void disp() {
+    std::cout << std::setw(3) << i << ": '" << x << "'" << std::endl;
+    MakeTable<i+1, S<y...>>::disp();
+  }
+};
+
+template <int i> 
+struct MakeTable<i, S<>> {
+  static void disp() {
+    std::cout << "Count: " << i << std::endl;
+  }
+};
 
 int main() {
 
-  Disp<tn Tr<Md::Encode, Key, S<'H', 'E', 'J'>>::v>();
-
+  MakeTable<0, CSet>::disp();
   std::cout << "Bra!" << std::endl;
   return 0;
 }
+
+
+
+/*
+
+  0: 'A'
+  1: 'B'
+  2: 'C'
+  3: 'D'
+  4: 'E'
+  5: 'F'
+  6: 'G'
+  7: 'H'
+  8: 'I'
+  9: 'J'
+ 10: 'K'
+ 11: 'L'
+ 12: 'M'
+ 13: 'N'
+ 14: 'O'
+ 15: 'P'
+ 16: 'Q'
+ 17: 'R'
+ 18: 'S'
+ 19: 'T'
+ 20: 'U'
+ 21: 'V'
+ 22: 'W'
+ 23: 'X'
+ 24: 'Y'
+ 25: 'Z'
+ 26: '0'
+ 27: '1'
+ 28: '2'
+ 29: '3'
+ 30: '4'
+ 31: '5'
+ 32: '6'
+ 33: '7'
+ 34: '8'
+ 35: '9'
+ 36: ' '
+ 37: ','
+ 38: '.'
+ Count: 39
+
+*/
 
 static_assert('D' == Cd<Md::Encode, 'B', 'C'>::v, "asdf");
 static_assert('C' == Cd<Md::Decode, 'B', 'D'>::v, "asdf");
