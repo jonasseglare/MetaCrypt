@@ -17,8 +17,7 @@ template <typename A, typename B> struct Cat;
 template <typename A, typename B> struct Cat {
   td Ops<B> b; 
   td tn Add<A, b::first>::value L;
-  td tn b::rest R;
-  td tn Cat<L, R>::value value;
+  td tn Cat<L, tn b::rest>::value value;
 };
 template <typename A> struct Cat<A, String<>> {td A value;};
 template <typename A, typename B> using cat = tn Cat<A, B>::value;
