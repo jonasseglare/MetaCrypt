@@ -53,12 +53,11 @@ td S<'C','A','S','S','O','U','L','E','T'> Key; // /* Hint: fill in name of favou
 tp <tn T> F The_message_is;
 The_message_is<tn Tr<Md::Decode, Key, Coded>::v> x;
 
+// int main() {
+//   return 0;
+// }
 
-
-
-
-
-
+/////////////////////////////////////////
 // Helpers
 template <int i, typename s>
 struct MakeTable {
