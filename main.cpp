@@ -38,6 +38,7 @@ tp <C x, C... y> F Fd<x,S<x,y...>> {sc int v = 0;};
 tp <C x> F Ind {sc int v = Fd<x, CSet>::v;};
 constexpr int sg(Md m) {return m==Md::Encode? 1 : -1;}
 tp <Md m, C x, C y> F Cd {sc C v = Nth<sg(m)*Ind<x>::v + Ind<y>::v, CSet>::v;};
+tp <tn K, tn X> F Tr {td tn Op<K>::v k; td tn Op<X>::v x; /*td tn Cn<>::v v;*/};
 
 int main() {
   Op<S<'a', 'b'>> x;
