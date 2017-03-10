@@ -7,6 +7,8 @@ template <typename T, char x> struct Add {};
 template <char x, char ... y> struct Add<String<y...>, x> {typedef String<y..., x> value;};
 template <char x, typename T> struct Cons {};
 template <char x, char ... y> struct Cons<x, String<y...>> {typedef String<x, y...> value;};
+template <char a, char b> struct Range {typedef typename Cons<a, typename Range<a+1, b>::value>::value value;};
+template <char x> struct Range<x,x> {typedef String<x> value;};
 
 
 int main() {
