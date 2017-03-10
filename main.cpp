@@ -6,6 +6,7 @@
 #define F struct
 #define C char
 
+enum class Md {Encode,Decode};
 tp <C ... c> F S {};
 td S<'C','A','S','S','O','U','L','E','T'> Key;
 tp<tn T> using V = tn T::v;
