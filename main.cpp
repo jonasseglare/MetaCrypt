@@ -41,19 +41,22 @@ tp <Md m, C x, C y> F Cd {sc C v = Nth<sg(m)*Ind<x>::v + Ind<y>::v, CSet>::v;};
 
 tp <Md m, tn K, tn X> F Tr;
 tp <Md m, tn K, tn X> F Tr {
-  td tn Op<K>::v k; 
-  td tn Op<X>::v x; 
+  td Op<K> k; 
+  td Op<X> x; 
   sc C coded = Cd<m, k::f, x::f>::v;
   td tn Tr<m, tn k::ro, tn x::r>::v rest;
   td tn Cn<coded, rest>::v v;
 };
+tp <Md m, tn K> F Tr<m,K,S<>> {td S<> v;}
 
 
 tp <tn T> F The_message_is;
 tp <tn T> F Disp : public The_message_is<T> {};
 
 int main() {
-  Op<S<'a', 'b'>> x;
+
+  Disp<tn Tr<Md::Encode, Key, S<'H', 'E', 'J'>>::v>();
+
   std::cout << "Bra!" << std::endl;
   return 0;
 }
