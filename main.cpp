@@ -43,9 +43,9 @@ tp <Md m, tn K, tn X> F Tr;
 tp <Md m, tn K, tn X> F Tr {
   td tn Op<K>::v k; 
   td tn Op<X>::v x; 
-  td tn Cd<m, k::f, x::f>::v coded;
+  sc C coded = Cd<m, k::f, x::f>::v;
   td tn Tr<m, tn k::ro, tn x::r>::v rest;
-  //td tn Cn<coded, rest>::v v;
+  td tn Cn<coded, rest>::v v;
 };
 
 int main() {
