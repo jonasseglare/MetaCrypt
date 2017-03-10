@@ -26,11 +26,11 @@ tp <tn A> F Ct<A, S<>> {td A v;};
 tp <tn A, tn B> using ct = tn Ct<A, B>::v;
 tp <C x, C y> using rg = tn Rg<x, y>::v;
 td ct<S<' ', ',', '.'>, ct<rg<'A', 'Z'>, rg<'0', '9'>>> CSet;
-tp <int n, tn T> F Nth {sc C v =  Nth<n-1, tn Op<T>::ro>::v;};
-tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
 tp <tn T> F L {sc int v = 1 + L<tn Op<T>::r>::v;};
 tp <> F L<S<>> {sc int v = 0;};
 constexpr int mup(int x, int y) {return x<0? mup(x+y,y):x;}
+tp <int n, tn T> F Nth {sc C v =  Nth<mup(n-1,L<T>::v), tn Op<T>::ro>::v;};
+tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
 //tp <C c, tn T> F Find {};
 //tp <C x, C y, C z...> F Find {};
 
