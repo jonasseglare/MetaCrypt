@@ -20,9 +20,12 @@ template <typename A, typename B> struct Cat {
   td tn b::rest R;
   td tn Cat<L, R>::value value;
 };
-template <typename A, char x> struct Cat<A, String<x>> {
-  td tn Add<A, x>::value value;
-};
+template <typename A> struct Cat<A, String<>> {td A value;};
+template <typename A, typename B> using cat = tn Cat<A, B>::value;
+template <char x, char y> using range = tn Range<x, y>::value;
+typedef cat<String<' ', ',', '.'>, cat<range<'A', 'Z'>, range<'0', '9'>>> CharSet;
+template <int n, typename T> struct Nth {static const char value =  Nth<n-1, tn Ops<T>::rotated>::value;};
+template <typename T> struct Nth<0, T> {static const char value = Ops<T>::first;};
 
 int main() {
   Ops<String<'a', 'b'>> x;
@@ -30,6 +33,7 @@ int main() {
   return 0;
 }
 
+static_assert('c' == Nth<2, String<'a', 'b', 'c', 'd'> >::value, "asdf");
 static_assert(std::is_same<String<'a', 'b', 'c'>, typename Range<'a', 'c'>::value>::value, "asdf");
 static_assert(std::is_same<tn Add<String<'a'>, 'b'>::value, String<'a', 'b'>>::value, "asdf");
 static_assert(std::is_same<
