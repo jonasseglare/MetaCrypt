@@ -5,32 +5,33 @@
 #define tp template
 #define sc static const
 #define F struct
+#define C char
 tp<tn T> using V = tn T::v;
 
-template <char ... c> struct String {};
-template <typename T> struct Ops {};
-template <char x, char ... y> struct Ops<String<x, y...>> {static const char first = x; typedef String<y...> rest; typedef String<y..., x> rotated;};
-template <typename T, char x> struct Add {};
-template <char x, char ... y> struct Add<String<y...>, x> {typedef String<y..., x> v;};
-template <char x, typename T> struct Cons {};
-template <char x, char ... y> struct Cons<x, String<y...>> {typedef String<x, y...> v;};
-template <char a, char b> struct Range {typedef typename Cons<a, typename Range<a+1, b>::v>::v v;};
-template <char x> struct Range<x,x> {typedef String<x> v;};
-template <typename A, typename B> struct Cat;
-template <typename A, typename B> struct Cat {
+tp <C ... c> F String {};
+tp <tn T> F Ops {};
+tp <C x, C ... y> F Ops<String<x, y...>> {sc C first = x; td String<y...> rest; td String<y..., x> rotated;};
+tp <tn T, C x> F Add {};
+tp <C x, C ... y> F Add<String<y...>, x> {td String<y..., x> v;};
+tp <C x, tn T> F Cons {};
+tp <C x, C ... y> F Cons<x, String<y...>> {td String<x, y...> v;};
+tp <C a, C b> F Rg {td tn Cons<a, tn Rg<a+1, b>::v>::v v;};
+tp <C x> F Rg<x,x> {td String<x> v;};
+tp <tn A, tn B> F Cat;
+tp <tn A, tn B> F Cat {
   td Ops<B> b; 
   td tn Cat<tn Add<A, b::first>::v, tn b::rest>::v v;
 };
-template <typename A> struct Cat<A, String<>> {td A v;};
-template <typename A, typename B> using cat = tn Cat<A, B>::v;
-template <char x, char y> using range = tn Range<x, y>::v;
-typedef cat<String<' ', ',', '.'>, cat<range<'A', 'Z'>, range<'0', '9'>>> CharSet;
-template <int n, typename T> struct Nth {static const char v =  Nth<n-1, tn Ops<T>::rotated>::v;};
-template <typename T> struct Nth<0, T> {static const char v = Ops<T>::first;};
-template <typename T> struct Length {static const int v = 1 + Length<tn Ops<T>::rest>::v;};
-template <> struct Length<String<>> {static const int v = 0;};
-//template <char c, typename T> struct Find {};
-//template <char x, char y, char z...> struct Find {};
+tp <tn A> F Cat<A, String<>> {td A v;};
+tp <tn A, tn B> using cat = tn Cat<A, B>::v;
+tp <C x, C y> using rg = tn Rg<x, y>::v;
+td cat<String<' ', ',', '.'>, cat<rg<'A', 'Z'>, rg<'0', '9'>>> CSet;
+tp <int n, tn T> F Nth {sc C v =  Nth<n-1, tn Ops<T>::rotated>::v;};
+tp <tn T> F Nth<0, T> {sc C v = Ops<T>::first;};
+tp <tn T> F L {sc int v = 1 + L<tn Ops<T>::rest>::v;};
+tp <> F L<String<>> {sc int v = 0;};
+//tp <C c, tn T> F Find {};
+//tp <C x, C y, C z...> F Find {};
 
 
 int main() {
@@ -39,9 +40,9 @@ int main() {
   return 0;
 }
 
-//static_assert(3 == Length<
+static_assert(3 == L<String<'a', 'b', 'c'>>::v, "asdf");
 static_assert('c' == Nth<2, String<'a', 'b', 'c', 'd'> >::v, "asdf");
-static_assert(std::is_same<String<'a', 'b', 'c'>, typename Range<'a', 'c'>::v>::value, "asdf");
+static_assert(std::is_same<String<'a', 'b', 'c'>, typename Rg<'a', 'c'>::v>::value, "asdf");
 static_assert(std::is_same<tn Add<String<'a'>, 'b'>::v, String<'a', 'b'>>::value, "asdf");
 static_assert(std::is_same<
               tn Cat<String<'a', 'b'>, String<'c', 'd'>>::v,
