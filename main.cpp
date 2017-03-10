@@ -51,4 +51,4 @@ static_assert(std::is_same<
               S<'a', 'b', 'c', 'd'> >::value, "asdf");
 static_assert(mup(2, 3) == 2, "asdf");
 static_assert(mup(-1, 3) == 2, "asdf");
-static_assert(3 == Fd<'D', CSet>::v, "asdf");
+static_assert(3 == Fd<'D', S<'A','B','C','D'>>::v, "asdf");
