@@ -37,7 +37,6 @@ tp <Q x, Q ... y> F Fd<x,S<x,y...>> {sc int v = 0;};
 tp <Q x> F Ind {sc int v = Fd<x, CSet>::v;};
 constexpr int sg(Md m) {return m==Md::Encode? 1 : -1;}
 tp <Md m, Q x, Q y> F Cd {sc Q v = Nth<sg(m)*Ind<x>::v + Ind<y>::v, CSet>::v;};
-
 tp <Md m, tn K, tn X> F Tr;
 tp <Md m, tn K, tn X> F Tr {
   td Op<K> k; 
@@ -47,12 +46,17 @@ tp <Md m, tn K, tn X> F Tr {
 tp <Md m, tn K> F Tr<m,K,S<>> {td S<> v;};
 
 
-tp <tn T> F The_message_is;
+td S<'J','E','1','P','0','B','X','Q','1','J','E','1'> Coded;
 
 td S<'C','A','S','S','O','U','L','E','T'> Key; // /* Hint: fill in name of favourite dish (French cuisine) during meetings. */
-td S<'J','E','1','P','0','B','X','Q','1'> Coded;
 
+tp <tn T> F The_message_is;
 The_message_is<tn Tr<Md::Decode, Key, Coded>::v> x;
+
+
+
+
+
 
 
 // Helpers
