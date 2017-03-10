@@ -31,6 +31,8 @@ tp <> F L<S<>> {sc int v = 0;};
 constexpr int mup(int x, int y) {return x<0? mup(x+y,y):x;}
 tp <int n, tn T> F Nth {sc C v =  Nth<mup(n-1,L<T>::v), tn Op<T>::ro>::v;};
 tp <tn T> F Nth<0, T> {sc C v = Op<T>::f;};
+tp <C x, C y, C ... z> F Fd {sc int v = 1+Fd<x, z...>::v;};
+tp <C x, C... y> F Fd<x,x,y...> {sc int v = 0;};
 //tp <C c, tn T> F Find {};
 //tp <C x, C y, C z...> F Find {};
 
