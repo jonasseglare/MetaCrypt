@@ -9,7 +9,6 @@
 
 enum class Md {Encode,Decode};
 tp <Q ... c> F S {};
-tp<tn T> using V = tn T::v;
 tp <tn T> F Op {};
 tp <Q x, Q ... y> F Op<S<x, y...>> {sc Q f = x; td S<y...> r; td S<y..., x> ro;};
 tp <tn T, Q x> F Ad {};
