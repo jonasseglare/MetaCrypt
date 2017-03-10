@@ -17,6 +17,11 @@ template <typename A, typename B> struct Cat;
 template <typename A, typename B> struct Cat {
   td Ops<B> b; 
   td tn Add<A, b::first>::value L;
+  td tn b::rest R;
+  td tn Cat<L, R>::value value;
+};
+template <typename A, char x> struct Cat<A, String<x>> {
+  td tn Add<A, x>::value value;
 };
 
 int main() {
@@ -27,3 +32,6 @@ int main() {
 
 static_assert(std::is_same<String<'a', 'b', 'c'>, typename Range<'a', 'c'>::value>::value, "asdf");
 static_assert(std::is_same<tn Add<String<'a'>, 'b'>::value, String<'a', 'b'>>::value, "asdf");
+static_assert(std::is_same<
+              tn Cat<String<'a', 'b'>, String<'c', 'd'>>::value,
+              String<'a', 'b', 'c', 'd'> >::value, "asdf");
